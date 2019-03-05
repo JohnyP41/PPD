@@ -8,7 +8,7 @@ vol r h = 1/3*pi*r^2*h
 czek a b c=if a+b>c && a+c>b && c+b>a then True else False
 
 silnia 0=1
-silnie n=n*silnia(n-1)
+silnia n=n*silnia(n-1)
 
 potega a n =if n==0 then 1 else a*potega a (n-1)
 
