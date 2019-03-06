@@ -1,1 +1,1 @@
-# Podstawy-programowania-deklaratywnego
+# Podstawy programowania deklaratywnego
