@@ -23,5 +23,3 @@ test x | x>2         = x^2
        | otherwise   = x-1
 nwd a b= if a==b then b else if a>b then nwd (a-b) b else nwd a (b-a) 
 nww a b = a*b/nwd a b
-
-
