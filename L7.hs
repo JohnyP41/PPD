@@ -54,18 +54,14 @@ rowne :: Eq a => [a] -> [a] -> Bool
 rowne a b=if(podzbior a b == True && podzbior b a == True) then True else False
 --zad7
 -- Zad. 7 a) sortowanie przez wstawianie
-mnm :: Ord a => [a] -> a
-mnm [] = error "empty list"
-mnm [x] = x
-mnm (x:xs) = min x (mnm xs)
+insert :: Ord a => a -> [a] -> [a]
+insert x [] = [x]
+insert x (y:ys) | x < y     = x:y:ys
+                | otherwise = y:(insert x ys)
 
-removeFst :: Eq a => a-> [a] -> [a]
-removeFst x [] = []
-removeFst x (y:ys) | x == y = ys
-                   | otherwise = y : (removeFst x ys)
-
-sort [] = []
-sort xs = m : (sort (removeFst m xs)) where m = mnm xs
+isort :: Ord a => [a] -> [a]
+isort [] = []
+isort (x:xs) = insert x (isort xs)
 -- Zad. 7 b) sortowanie bąbelkowe
 bubblesort :: Ord a => [a] -> [a]
 bubblesort s = case bsort s of
