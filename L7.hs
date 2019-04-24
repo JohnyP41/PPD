@@ -20,24 +20,37 @@ swap1 list = last list:(init(tail list)) ++ [head list]
 
 swap2 [] = [] 
 swap2 [a] = [a]
+swap2 [x,y] = [x,y]
 swap2 [x,y,z] = [x,y,z]
-swap2 x=[head x] ++[head (tail (reverse x))]++[(head (tail x))]++ [last x]
+swap2 list = [head list,penultimate list]++(getMiddle list)++[seacond list,last list]
+penultimate list = last (take (length list-1) list)
+seacond list = head (tail list)
+getMiddle list = reverse( tail (tail( reverse (tail (tail list)))))
 ---do poprawy
 --zad4
-count(_,[]) = 0
-count(x,list) = sum ( map (\a -> 1) ( filter (== x) list ))
---do poprawy
---zad5
-contains [] y = True
-contains (x:xs) y = elem x y && contains xs y
+count :: Eq a => a -> [a] -> Int
+count _ [] = 0
+count a (x:xs) | a == x = 1 + count a xs
+               | otherwise = count a xs
 
-equals x y = contains x y && contains y x
+f :: Eq a => [a] -> Bool
+f [] = True
+f (x:xs) | count x (x:xs) == count (head xs) (x:xs) = f (filter (/=x) xs)
+         | otherwise = False 
+--zad5
+eq :: Eq a => [a] -> [a] -> Bool
+eq [] [] = True
+eq [] _ = False
+eq _ [] = False
+eq (x:xs) (y:ys) | x == y = eq xs ys
+                 | otherwise = False
 --zad6
 podzbior :: Eq a => [a] -> [a] -> Bool
 podzbior [] y = True
 podzbior (x:xs) y | elem x y == True = podzbior xs y
                   | otherwise = False
 
+rowne :: Eq a => [a] -> [a] -> Bool
 rowne a b=if(podzbior a b == True && podzbior b a == True) then True else False
 --zad7
 -- Zad. 7 a) sortowanie przez wstawianie
@@ -85,4 +98,4 @@ pusta1 x =if(x==[]) then True else False
 --zad11
 punkty (x1,y1) = ((0-x1)^2+(0-y1)^2)**0.5
 
-f x=sortBy (compare `on` punkty) x
+f1 x=sortBy (compare `on` punkty) x
