@@ -199,8 +199,9 @@ nalezy(X,[_|T]) :- nalezy(X,T).
 obok(X, Y, [X,Y|_]).
 obok(X, Y, [_|Zs]) :- obok(X, Y, Zs).
 
-usun(A, [A|B], B).
-usun(A, [B, C|D], [B|E]) :- usun(A, [C|D], E).
+usun([],_,[]) :- !. 
+usun([X|T],X,L1) :- !, usun(T,X,L1).
+usun([H|T],X,[H|L1]) :- usun(T,X,L1). 
 
 wybierz(El,[El|T],T).
 wybierz(El,[H|T],[H|S]) :- wybierz(El,T,S).
